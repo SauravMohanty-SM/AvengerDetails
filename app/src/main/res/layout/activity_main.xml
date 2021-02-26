@@ -12,7 +12,6 @@
         android:id="@+id/search_bar_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background=""
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,11 +26,13 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/avenger_search_bar"
             android:hint="Search Your Favorite Hero"
-            android:textAlignment="center"
+            android:textColorHint="#718093"
+            android:textAlignment="viewStart"
             android:textColor="#000000"
-            tools:ignore="MissingConstraints"
+            tools:ignore="MissingConstraints,RtlCompat"
             tools:layout_editor_absoluteX="56dp"
-            tools:layout_editor_absoluteY="318dp" />
+            tools:layout_editor_absoluteY="318dp"
+            android:paddingLeft="25dp"/>
         <ImageView
             android:id="@+id/search_image"
             android:layout_width="75dp"
