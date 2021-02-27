@@ -33,6 +33,8 @@
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="318dp"
             android:paddingLeft="25dp"/>
+
+
         <ImageView
             android:id="@+id/search_image"
             android:layout_width="75dp"
