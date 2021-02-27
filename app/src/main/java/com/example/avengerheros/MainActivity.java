@@ -17,8 +17,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,29 +81,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void ApiCall(String newURL) {
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+//        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
 
 // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, newURL,
-                new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, newURL, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d ("Avg", response);
+                    public void onResponse(JSONObject response) {
                         mLoadingBar.dismiss();
+
+                        Log.d("Avg", response.toString());
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                mLoadingBar.dismiss();
-                showErrorDialog();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        mLoadingBar.dismiss();
 
-            }
-        });
+                        showErrorDialog(error);
+
+                    }
+                });
 
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+//        queue.add(jsonObjectRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
     }
 
@@ -112,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showErrorDialog() {
+    private void showErrorDialog(VolleyError error) {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Oops")
-                .setMessage("Something Went Wrong. Please try Again")
+                .setMessage(error.toString())
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
