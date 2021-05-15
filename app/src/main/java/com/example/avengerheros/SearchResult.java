@@ -33,4 +33,6 @@ public class SearchResult extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
+
+
 }
